@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+</head>
+
+<!-- Commentaire HTML -->
+
+<body>
+    <!-- Chaque page doit avoir un H1 qui est le titre principal de la page -->
+    <h1>Cours de JS 2020-2021</h1>
+
+    <section id="news">
+        <h2 id="titleNews">News</h2>
+        <article>
+            <h3 class="title">News 1</h3>
+        </article>
+
+        <article>
+            <h3 class="title">News 2</h3>
+        </article>
+
+        <article>
+            <h3 class="title">News 3</h3>
+        </article>
+    </section>
+
+    <form id="addNewsForm">
+        Nom de la news : <input name="titleToAdd" type="text" id="nomNews"/>
+
+        <input type="submit" name="addNewsBtn"/>
+    </form>
+</body>
+
+
+<!-- Le code JS doit se trouver après la clôture de la balise body. -->
+<script type="text/javascript" src="src/js/variables.js"></script>
+<script>
+    let h1 = document.querySelector('h1');
+    let titresNews = document.querySelectorAll('.title');
+    let newsForm = document.querySelector('#addNewsForm');
+    newsForm.addEventListener('submit', fonctionSubmit);
+
+    // Boucle de 0 à 5
+    for(let i = 0; i <= 5; i++){
+        console.log(i);
+        switch(i%2){
+            case 0:
+                console.log(RED);
+                break;
+            case 1:
+                console.log(BLUE);
+                break;
+            default:
+                console.log(GREEN);
+                break;
+        }
+    }
+
+    // Récupérer le contenu de H1 et le log
+    console.log(h1.innerHTML);
+
+    // Affichage des news dans la console
+    titresNews.forEach(news => console.log(news.innerHTML));
+
+    function fonctionSubmit(){
+        h1.innerHTML = document.getElementById("nomNews").value;
+    }
+</script>
+
+</html>
