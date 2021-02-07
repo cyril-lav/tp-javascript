@@ -5,7 +5,6 @@
 </head>
 
 <!-- Commentaire HTML -->
-
 <body>
     <!-- Chaque page doit avoir un H1 qui est le titre principal de la page -->
     <h1>Cours de JS 2020-2021</h1>
@@ -25,7 +24,7 @@
         </article>
     </section>
 
-    <form id="addNewsForm">
+    <form id="addNewsForm" onsubmit="return addNews();">
         Nom de la news : <input name="titleToAdd" type="text" id="nomNews"/>
 
         <input type="submit" name="addNewsBtn"/>
@@ -36,36 +35,42 @@
 <!-- Le code JS doit se trouver après la clôture de la balise body. -->
 <script type="text/javascript" src="src/js/variables.js"></script>
 <script>
-    let h1 = document.querySelector('h1');
-    let titresNews = document.querySelectorAll('.title');
-    let newsForm = document.querySelector('#addNewsForm');
-    newsForm.addEventListener('submit', fonctionSubmit);
-
     // Boucle de 0 à 5
-    for(let i = 0; i <= 5; i++){
+    for(let i = 0; i < 5; i++){
         console.log(i);
-        switch(i%2){
-            case 0:
-                console.log(RED);
-                break;
-            case 1:
-                console.log(BLUE);
-                break;
-            default:
-                console.log(GREEN);
-                break;
+        if(i == 0){
+            console.log(GREEN)
+        }
+        else{
+            console.log(i%2==0 ? RED : BLUE);
         }
     }
 
     // Récupérer le contenu de H1 et le log
+    let h1 = document.querySelector('h1');
     console.log(h1.innerHTML);
 
-    // Affichage des news dans la console
-    titresNews.forEach(news => console.log(news.innerHTML));
+    // Récupérer le contenu de H2 #titleNews et le log
+    let h2 = document.querySelector('#titleNews');
+    console.log(h2.innerHTML);
 
-    function fonctionSubmit(){
-        h1.innerHTML = document.getElementById("nomNews").value;
+    // Récupérer le contenu de toutes les balises H3 et le log
+    let h3 = document.querySelectorAll('.title');
+    h3.forEach(balise => console.log(balise.innerHTML));
+
+
+    // Au clic sur le bouton du formulaire, récupérer le contenu du champ ...
+    function addNews()
+    {
+        newArticle = document.createElement('article');
+        newTitle = document.createElement('h3');
+        newTitle.className += "title";
+        newTitle.innerHTML = document.getElementById('nomNews').value;
+        newArticle.append(newTitle);
+        document.querySelector('#news').append(newArticle);
+        return false;
     }
+
 </script>
 
 </html>
