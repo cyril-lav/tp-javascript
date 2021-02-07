@@ -5,6 +5,7 @@
 </head>
 
 <!-- Commentaire HTML -->
+
 <body>
     <!-- Chaque page doit avoir un H1 qui est le titre principal de la page -->
     <h1>Cours de JS 2020-2021</h1>
@@ -25,9 +26,9 @@
     </section>
 
     <form id="addNewsForm" onsubmit="return addNews();">
-        Nom de la news : <input name="titleToAdd" type="text" id="nomNews"/>
+        Nom de la news : <input name="titleToAdd" type="text" id="nomNews" />
 
-        <input type="submit" name="addNewsBtn"/>
+        <input type="submit" name="addNewsBtn" />
     </form>
 </body>
 
@@ -36,13 +37,13 @@
 <script type="text/javascript" src="src/js/variables.js"></script>
 <script>
     // Boucle de 0 à 5
-    for(let i = 0; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         console.log(i);
-        if(i == 0){
+        if (i == 0) {
             console.log(GREEN)
         }
-        else{
-            console.log(i%2==0 ? RED : BLUE);
+        else {
+            console.log(i % 2 == 0 ? RED : BLUE);
         }
     }
 
@@ -60,17 +61,47 @@
 
 
     // Au clic sur le bouton du formulaire, récupérer le contenu du champ ...
-    function addNews()
-    {
-        newArticle = document.createElement('article');
-        newTitle = document.createElement('h3');
+    function addNews() {
+        let article = document.getElementById('nomNews').value
+
+        //Si doublon alors message d'erreur de couleur rouge
+        if(estUnDoublon(article)){
+            let message = document.createElement('p');
+            message.innerHTML="Article déjà existant";
+            message.style="color:" + RED;
+            document.querySelector('#addNewsForm').prepend(message);
+            return false;
+        }
+        let newArticle = document.createElement('article');
+        let newTitle = document.createElement('h3');
         newTitle.className += "title";
-        newTitle.innerHTML = document.getElementById('nomNews').value;
+        newTitle.innerHTML = article;
         newArticle.append(newTitle);
         document.querySelector('#news').append(newArticle);
         return false;
     }
 
+    // Créer une fonction qui log un message un paramètre + DateTime
+    function affichageMessage(message) {
+        let date = new Date();
+        let jour = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+        let heure = date.getHours() + ':' + date.getMinutes();
+        console.log('Le ' + jour + ' à ' + heure + ' ' + message);
+    }
+
+    // Vérifier si l'article existe déjà
+    function estUnDoublon(article) {
+        let listeArticles = document.querySelectorAll(".title");
+        for(let i = 0; i < listeArticles.length; i++)
+        {
+            if (listeArticles[i].innerHTML.toString() == article.toString()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    affichageMessage("ceci est un test");
 </script>
 
 </html>
