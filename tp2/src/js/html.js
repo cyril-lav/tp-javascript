@@ -2,8 +2,8 @@ function bindButton(button){
 	button.onclick = function(event){
 		event.preventDefault();
     	let champ = document.querySelector('input[name="titleToAdd"]');
-		
-		if(addArticle(champ.value))
+        let description = document.querySelector('input[name="descriptionToAdd"]');
+		if(addArticle(champ.value, description.value))
 			champ.value = '';
 
 		return false;
@@ -27,4 +27,14 @@ function addError(message, parent){
     error.classList.add('error');
 
     parent.prepend(error);
+}
+
+function bindViewDetailButton(button)
+{
+    button.onclick = viewDetailButtonClic;
+}
+
+function viewDetailButtonClic() {
+    let description = this.parentElement.parentElement.querySelector('p');
+    console.log(description.innerHTML);
 }
