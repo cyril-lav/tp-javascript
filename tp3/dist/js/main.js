@@ -22,15 +22,13 @@ titles.forEach(element => logMessageWithDate(element.innerHTML)); */
 
 
 
-// PROBLEME ICI
+
 // JS Jquery
-console.log("test");
 let titles = $('.title');
-titles.each(function(title){
-	logMessageWithDate(title.html);
-})
-console.log("test");
-// logMessageWithDate(titles.html());
+titles.each(function () {
+	logMessageWithDate($(this).html());
+});
+
 
 
 // JS classique
@@ -49,10 +47,16 @@ buttons.forEach(function(element){
 
 // JS Jquery
 let buttons = $('article button');
-console.log(buttons);
+buttons.each(function () {
+	$(this).click(function () {
+		// viewdetailClick(); // ne fonctionne pas, remplacé par la ligne en dessous
+		console.log($(this).parent().find('p').html());
+	});
+});
+
 
 let articles = JSON.parse(ALLNEWSJSON);
-articles.forEach(function(element){
+articles.forEach(function (element) {
 	console.log(element);
 
 	let a = new Article(element.id, element.title, element.description);

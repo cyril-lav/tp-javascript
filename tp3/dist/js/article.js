@@ -10,18 +10,35 @@ class Article {
     }
 
     createArticleHtml() {
-        let newArticle = document.createElement('article');
-        let h3 = document.createElement('h3');
-        let p = document.createElement('p');
-        let button = document.createElement('button');
-        let news = document.querySelector('#news');
+        // JS classique
+        // let newArticle = document.createElement('article');
+        // let h3 = document.createElement('h3');
+        // let p = document.createElement('p');
+        // let button = document.createElement('button');
+        // let news = document.querySelector('#news');
 
-        h3.innerHTML = this.title;
-        p.innerHTML = this.description;
-        button.innerHTML = 'View detail';
+        // JS Jquery
+        let newArticle = $('<article></article>');
+        let h3 = $('<h3></h3>');
+        let p = $('<p></p>');
+        let button = $('<button></button>');
+        let news = $('#news');
+
+        // JS classique
+        // h3.innerHTML = this.title;
+        // p.innerHTML = this.description;
+        // button.innerHTML = 'View detail';
+        // this.bindButtonViewdetail(button, viewdetailClick);
+        // h3.classList.add('title');
+        // newArticle.id = this.id;
+
+        // JS Jquery
+        h3.html(this.title);
+        p.html(this.description);
+        button.html('View detail');
         this.bindButtonViewdetail(button, viewdetailClick);
-        h3.classList.add('title');
-        newArticle.id = this.id;
+        h3.addClass('title');
+        newArticle.attr('id', this.id);
 
         newArticle.append(h3);
         newArticle.append(p);
