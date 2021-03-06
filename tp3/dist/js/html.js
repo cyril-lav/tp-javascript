@@ -61,3 +61,20 @@ function viewdetailClick(){
     // logMessageWithDate(p.text());
     console.log($(this).parent().find('p').html());
 }
+
+
+// système d'onglet recherche et ajout :
+let ongletRechercher = $('#rechercherArticle');
+let ongletAjouter = $('#ajouterArticle');
+let formulaireAjout = $('#addNewsForm');
+let formulaireRecherche = $('#searchNewsForm');
+
+ongletAjouter.click(function() {
+    formulaireAjout.css('display', 'block');
+    formulaireRecherche.css('display', 'none');
+});
+
+ongletRechercher.click(function(){
+    formulaireRecherche.css('display', 'block');
+    formulaireAjout.css('display', 'none');
+})
