@@ -78,3 +78,8 @@ ongletRechercher.click(function(){
     formulaireRecherche.css('display', 'block');
     formulaireAjout.css('display', 'none');
 })
+
+function hideOnglets(){
+    formulaireAjout.css('display', 'none');
+    formulaireRecherche.css('display', 'none');
+}

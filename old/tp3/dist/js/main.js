@@ -51,6 +51,7 @@ buttons.each(function () {
 	$(this).click(function () {
 		// viewdetailClick(); // ne fonctionne pas, remplacé par la ligne en dessous
 		console.log($(this).parent().find('p').html());
+		hideOnglets();
 	});
 });
 

@@ -1,45 +1,79 @@
-function createArticle(title) {
-    let newArticle = document.createElement('article');
-    let h3 = document.createElement('h3');
-    let news = document.querySelector('#news');
-    h3.innerHTML = title;
-    h3.classList.add('title');
-    newArticle.append(h3);
-    news.append(newArticle);
-}
+class Article {
+    id;
+    title;
+    description;
 
-function checkArticleUnicity(title) {
-    let h3s = document.querySelectorAll('.title');
+    constructor(id, title, description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
 
-    for (let i = 0; i < h3s.length; i++) {
-        if (h3s[i].innerHTML.toLowerCase().trim() === title.toLowerCase().trim()) {
-            let error = document.createElement('p');
-            error.innerHTML = 'Erreur article deja existant';
-            error.style.color = rouge;
-            error.classList.add('error');
+    createArticleHtml() {
+        let newArticle = $('<article></article>');
+        let h3 = $('<h3></h3>');
+        let p = $('<p></p>');
+        let button = $('<button></button>');
+        let news = $('#news');
 
-            let form = document.querySelector('#addNewsForm');
-            form.prepend(error);
+        h3.html(this.title);
+        p.html(this.description);
+        button.html('View detail');
+        this.bindButtonViewdetail(button, viewdetailClick);
+        h3.addClass('title');
+        newArticle.attr('id', this.id);
 
+        newArticle.append(h3);
+        newArticle.append(p);
+        newArticle.append(button);
+        news.append(newArticle);
+    }
+
+    checkArticleUnicity() {
+        let h3s = $('.title');
+
+        for (let i = 0; i < h3s.length; i++) {
+            if ($(h3s[i]).html().toLowerCase().trim() === this.title.toLowerCase().trim()) {
+                throw new Error('Erreur article deja existant');
+            }
+        }
+    }
+
+    checkValue() {
+        if (this.title === '') {
+            throw new Error('Title vide');
+        }
+
+        if (this.description === '') {
+            throw new Error('Description vide');
+        }
+    }
+
+    addArticle() {
+        clearErrors();
+
+        try {
+            this.checkValue();
+            this.checkArticleUnicity()
+        } catch (error) {
+            addError(error.message, $('#addNewsForm'));
             return false;
-        }  
+        }
+
+        this.createArticleHtml();
+        return true;
     }
 
-    return true;
-}
-
-function addArticle(title) {
-    let errors = document.querySelectorAll('.error');
-
-    if(errors){
-        while(errors.length > 0){
-            errors[0].parentNode.removeChild(errors[0]);
-        }        
+    bindButtonViewdetail(button, callback) {
+        button.click(callback);
     }
 
-    if (!checkArticleUnicity(title)) {
-        return;
+    static getNextId() {
+        let article = $('article:last');
+
+        if (article.length == 0)
+            return 1;
+
+        return article.attr('id') + 1;
     }
-    
-    createArticle(title);
 }
